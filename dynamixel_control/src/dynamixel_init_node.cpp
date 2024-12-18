@@ -18,6 +18,7 @@
 #define BAUDRATE                        57600
 #define PROTOCOL_VERSION                2.0
 #define MOVE_TIME                       1000
+#define COMM_TX_FAIL                    -1001
 
 // Control table addresses
 #define ADDR_XM_GOAL_POSITION           116
@@ -92,28 +93,25 @@ private:
     uint8_t dxl_error = 0;
     int dxl_comm_result = COMM_TX_FAIL;
     // 1번 ID 초기화
-    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 1, ADDR_XM_DRIVE_MODE, 4, &dxl_error);
     dxl_comm_result = packetHandler->write4ByteTxRx(portHandler, 1, ADDR_XM_MAX_POSITION, MAX_POSITION, &dxl_error);
     dxl_comm_result = packetHandler->write4ByteTxRx(portHandler, 1, ADDR_XM_MIN_POSITION, MIN_POSITION, &dxl_error);
     dxl_comm_result = packetHandler->write4ByteTxRx(portHandler, 1, ADDR_XM_VELOCITY_PROFILE, MOVE_TIME, &dxl_error);
     dxl_comm_result = packetHandler->write4ByteTxRx(portHandler, 1, ADDR_XM_PROFILE_ACCELERATION, 0, &dxl_error);
-    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 1, ADDR_XM_TORQUE_ENABLE, 1, &dxl_error);
+    
 
     // 2번 ID 초기화
-    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 2, ADDR_XM_DRIVE_MODE, 4, &dxl_error);
     dxl_comm_result = packetHandler->write4ByteTxRx(portHandler, 2, ADDR_XM_MAX_POSITION, MAX_POSITION, &dxl_error);
     dxl_comm_result = packetHandler->write4ByteTxRx(portHandler, 2, ADDR_XM_MIN_POSITION, MIN_POSITION, &dxl_error);
     dxl_comm_result = packetHandler->write4ByteTxRx(portHandler, 2, ADDR_XM_VELOCITY_PROFILE, MOVE_TIME, &dxl_error);
     dxl_comm_result = packetHandler->write4ByteTxRx(portHandler, 2, ADDR_XM_PROFILE_ACCELERATION, 0, &dxl_error);
-    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 2, ADDR_XM_TORQUE_ENABLE, 1, &dxl_error);
+    
 
     // 3번 ID 초기화
-    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 3, ADDR_XM_DRIVE_MODE, 4, &dxl_error);
     dxl_comm_result = packetHandler->write4ByteTxRx(portHandler, 3, ADDR_XM_MAX_POSITION, MAX_POSITION, &dxl_error);
     dxl_comm_result = packetHandler->write4ByteTxRx(portHandler, 3, ADDR_XM_MIN_POSITION, MIN_POSITION, &dxl_error);
     dxl_comm_result = packetHandler->write4ByteTxRx(portHandler, 3, ADDR_XM_VELOCITY_PROFILE, MOVE_TIME, &dxl_error);
     dxl_comm_result = packetHandler->write4ByteTxRx(portHandler, 3, ADDR_XM_PROFILE_ACCELERATION, 0, &dxl_error);
-    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 3, ADDR_XM_TORQUE_ENABLE, 1, &dxl_error);
+    
   }
 
   void initial_current_mode()
@@ -123,6 +121,11 @@ private:
     dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 1, ADDR_XM_OPERATING_MODE, 0, &dxl_error);
     dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 2, ADDR_XM_OPERATING_MODE, 0, &dxl_error);
     dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 3, ADDR_XM_OPERATING_MODE, 0, &dxl_error);
+
+    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 1, ADDR_XM_TORQUE_ENABLE, 1, &dxl_error);
+    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 2, ADDR_XM_TORQUE_ENABLE, 1, &dxl_error);
+    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 3, ADDR_XM_TORQUE_ENABLE, 1, &dxl_error);
+    std::cout << "dxl_comm_result: " << dxl_comm_result << std::endl;
   }
 
   void initial_speed_mode()
@@ -132,6 +135,11 @@ private:
     dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 1, ADDR_XM_OPERATING_MODE, 1, &dxl_error);
     dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 2, ADDR_XM_OPERATING_MODE, 1, &dxl_error);
     dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 3, ADDR_XM_OPERATING_MODE, 1, &dxl_error);
+
+    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 1, ADDR_XM_TORQUE_ENABLE, 1, &dxl_error);
+    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 2, ADDR_XM_TORQUE_ENABLE, 1, &dxl_error);
+    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 3, ADDR_XM_TORQUE_ENABLE, 1, &dxl_error);
+    std::cout << "dxl_comm_result: " << dxl_comm_result << std::endl;
   }
 
   void initial_position_mode()
@@ -141,6 +149,12 @@ private:
     dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 1, ADDR_XM_OPERATING_MODE, 3, &dxl_error);
     dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 2, ADDR_XM_OPERATING_MODE, 3, &dxl_error);
     dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 3, ADDR_XM_OPERATING_MODE, 3, &dxl_error);
+
+    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 1, ADDR_XM_TORQUE_ENABLE, 1, &dxl_error);
+    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 2, ADDR_XM_TORQUE_ENABLE, 1, &dxl_error);
+    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 3, ADDR_XM_TORQUE_ENABLE, 1, &dxl_error);
+    std::cout << "dxl_comm_result: " << dxl_comm_result << std::endl;
+
   }
 
   void control_current_mode(const std::vector<float>& control_value)
@@ -225,7 +239,7 @@ private:
     std::vector<int> position_bits;
     position_bits.reserve(control_value.size());
     for (auto val : control_value) {
-      float scaled_val = val / 229 * 1000;
+      float scaled_val = val / 88 * 1000;
       int32_t rounded_val = static_cast<int>(std::round(scaled_val));
       position_bits.push_back(rounded_val);
     }
@@ -253,10 +267,20 @@ private:
     groupBulkWrite->txPacket();
   }
 
+  void terminate_dynamixel()
+  {
+    uint8_t dxl_error = 0;
+    int dxl_comm_result = COMM_TX_FAIL;
+    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 1, ADDR_XM_TORQUE_ENABLE, 0, &dxl_error);
+    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 2, ADDR_XM_TORQUE_ENABLE, 0, &dxl_error);
+    dxl_comm_result = packetHandler->write1ByteTxRx(portHandler, 3, ADDR_XM_TORQUE_ENABLE, 0, &dxl_error);
+  }
+
   void control_callback(const dynamixel_msg::msg::DxlControl::SharedPtr msg)
   {
     int operate_mode = msg->operate_mode;
     const std::vector<float>& control_value = msg->control_value;
+    RCLCPP_INFO(this->get_logger(), "Received operate_mode: %d", operate_mode);
 
     switch (operate_mode){
       case 0: // current(torque) control mode
@@ -264,9 +288,12 @@ private:
           initial_current_mode();
           control_current_mode(control_value);
           run_once_flag = 1;
+          RCLCPP_INFO(this->get_logger(), "Current control mode started.");
+
         }
         else{
           control_current_mode(control_value);
+          RCLCPP_INFO(this->get_logger(), "Current control mode running.");
         }
         break;
       case 1: // speed control mode
@@ -274,9 +301,11 @@ private:
           initial_speed_mode();
           control_speed_mode(control_value);
           run_once_flag = 1;
+          RCLCPP_INFO(this->get_logger(), "Speed control mode started.");
         }
         else{
           control_speed_mode(control_value);
+          RCLCPP_INFO(this->get_logger(), "Speed control mode running.");
         }
         break;
       case 3: // position control mode
@@ -284,10 +313,17 @@ private:
           initial_position_mode();
           control_position_mode(control_value);
           run_once_flag = 1;
+          RCLCPP_INFO(this->get_logger(), "Position control mode started.");
         }
         else{
           control_position_mode(control_value);
+          RCLCPP_INFO(this->get_logger(), "Position control mode running.");
         }
+        break;
+      case 4: // stop
+        run_once_flag = 0;
+        RCLCPP_INFO(this->get_logger(), "Stop control mode.");
+        terminate_dynamixel();
         break;
     }
   }
