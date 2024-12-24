@@ -21,6 +21,7 @@ find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/DxlControl.msg"
+  "srv/DxlState.srv"
  )
 
 if(BUILD_TESTING)

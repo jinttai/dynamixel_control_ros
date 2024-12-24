@@ -1,0 +1,6 @@
+# Request
+bool get_data
+---
+# Response
+float32[] joint_angle
+float32[] joint_angular_velocity
